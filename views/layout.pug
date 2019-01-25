@@ -1,7 +1,58 @@
 doctype html
 html
   head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    meta(content='width=device-width, initial-scale=1')
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='//cdn.muicss.com/mui-0.9.41/css/mui.min.css' type='text/css')
+    link(rel='stylesheet', href='/stylesheets/style.css' type='text/css')
+    script(src="//code.jquery.com/jquery-2.1.4.min.js")
+    script(src='/javascripts/indexToolbar.js')
+    script(src='//cdn.muicss.com/mui-0.9.41/js/mui.min.js')
   body
-    block content
+    div#sidedrawer.mui--no-user-select
+      div#sidedrawer-brand.mui--appbar-line-height
+        span.mui--text-title 拼团游
+      div.mui-divider
+      ul
+        li
+          strong 主页
+          ul
+            li
+              button.mui-btn.mui-btn--raised.mui-btn--primary
+                a(href='#') 最新推荐
+            li
+              button.mui-btn.mui-btn--raised.mui-btn--primary
+                a(href='#') 特价活动
+            li
+              button.mui-btn.mui-btn--raised.mui-btn--primary
+                a(href='#') 友商链接
+
+      ul
+        li
+          strong 个人中心
+          ul
+            li
+              button.mui-btn.mui-btn--raised.mui-btn--primary
+                a(href='#') 我的行程
+            li
+              button.mui-btn.mui-btn--raised.mui-btn--primary
+                a(href='#') 个人信息
+
+    header#header
+      div.mui-appbar.mui--appbar-line-height
+        div.mui-container-fluid
+          a.sidedrawer-toggle.mui--visible-xs-inline-block.mui--visible-sm-inline-block.js-show-sidedrawer ☰
+          a.sidedrawer-toggle.mui--hidden-xs.mui--hidden-sm.js-hide-sidedrawer ☰
+          span.mui--text-title.mui--visible-xs-inline-block.mui--visible-sm-inline-block 拼团游
+    div#content-wrapper
+      div.mui--appbar-height
+      div.mui--container-fluid
+        br
+        block content
+
+    footer#footer
+      div.mui-container-fluid
+        br
+        p Made with <a href="https://www.muicss.com")> MUICSS </a>
