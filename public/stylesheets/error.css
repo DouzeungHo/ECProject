@@ -1,0 +1,33 @@
+.error-page-content{
+    background: url(../images/errorbg.jpg) no-repeat;
+    background-size: cover;
+    height: 100%
+    width: 100%;
+    margin: -20px;
+    min-height: 511px;
+}
+.error-page-content h1 {
+    padding: 60px;
+    font-size: 100px;
+    letter-spacing: 5px;
+    text-align: center;
+    font-weight: 700;
+    color: #fff;
+	font-family: 'Ravi Prakash', cursive;
+	text-shadow:9px 9px 3px hsl(206, 15%, 40%);
+}
+.error-page-content h2{
+	font-size:30px;
+	letter-spacing:3px;
+	text-align:center;
+	color:#ffffff;
+	text-shadow:6px 6px 2px hsl(206, 15%, 40%);
+}
+.error-page-content p {
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    width: 50%;
+    margin: 30px auto 0 auto;
+    line-height: 30px;
+}
