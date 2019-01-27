@@ -1,0 +1,28 @@
+extends layout
+
+append head
+	link(rel='stylesheet' href='/stylesheets/sign.css' type='text/css')
+
+block content
+
+	div#signin
+		center
+			h2.mui--text-center 欢迎注册拼团游
+			table#sign-content-wrapper.mui-body(cellpadding="0" cellspacing="0" border="0" width='50%')
+				tr
+					td.mui-panel
+						div.mui-container
+								form.mui-form
+									div.mui-textfield.mui-textfield--float-label
+										input(type='text' required)
+										label 用户名
+									div.mui-textfield.mui-textfield--float-label
+										input(type='email' required)
+										label 电子邮箱
+									div.mui-textfield.mui-textfield--float-label
+										input(type='password' required)
+										label 密码
+									div.mui-textfield.mui-textfield--float-label
+										input(type='password' required)
+										label 再次输入密码
+								button.mui-btn.mui-btn--raised.mui-btn--primary(type="submit") 提交

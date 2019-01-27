@@ -12,50 +12,28 @@ html
       script(src='/javascripts/indexToolbar.js')
       script(src='//cdn.muicss.com/mui-0.9.41/js/mui.min.js')
   body
-    div#sidedrawer.mui--no-user-select
-      div#sidedrawer-brand.mui--appbar-line-height
-        span.mui--text-title 快速导航
-      div.mui-divider
-      ul
-        li
-          strong 主页
-          ul
-            li
-              a(href='#')
-                button.mui-btn.mui-btn--raised.mui-btn--primary 最新推荐
-            li
-              a(href='#')  
-                button.mui-btn.mui-btn--raised.mui-btn--primary 特价活动
-            li
-              a(href='#')
-                button.mui-btn.mui-btn--raised.mui-btn--primary 友商链接
-
-      ul
-        li
-          strong 个人中心
-          ul
-            li
-              a(href='#')
-                button.mui-btn.mui-btn--raised.mui-btn--primary 我的行程
-              
-            li
-              a(href='#')
-                button.mui-btn.mui-btn--raised.mui-btn--primary 个人设置
+    include navigate.pug
               
 
-    header#header
-      div.mui-appbar.mui--appbar-line-height
-        div.mui-container-fluid
-          a.sidedrawer-toggle.mui--visible-xs-inline-block.mui--visible-sm-inline-block.js-show-sidedrawer ☰
-          a.sidedrawer-toggle.mui--hidden-xs.mui--hidden-sm.js-hide-sidedrawer ☰
-            a.mui--text-title(href='/')
-              button.mui-btn.mui-btn--primary 拼团游
+    header#header.mui--z1
+      div.mui-appbar.mui--appbar-height
+        table(width='100%')
+          tr
+            td
+              div.mui-container-fluid
+                a.sidedrawer-toggle.mui--visible-xs-inline-block.mui--visible-sm-inline-block.js-show-sidedrawer ☰
+                a.sidedrawer-toggle.mui--hidden-xs.mui--hidden-sm.js-hide-sidedrawer ☰
+                  a.mui--text-title(href='/')
+                    button.mui-btn.mui-btn--primary 拼团游
+            td(align='right')
+              include none-user-bar.pug
+
     div#content-wrapper
       div.mui--appbar-height
-      div.mui-container-fluid
+      div#strange.mui-container-fluid
         block content
 
     footer#footer
-      div.mui-container-fluid
+      div.mui-container.mui--text-center
         br
         p Made with <a href="https://www.muicss.com")> MUICSS </a>
