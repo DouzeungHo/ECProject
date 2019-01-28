@@ -9,7 +9,11 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var mongoBase = require('connect-mongo')(session);
+var dbURL = 'mongodb://localhost'
 
+
+//Router
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -18,6 +22,15 @@ var app = express();
 //解析请求
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+//set session
+app.use(cookieParser()); 
+app.use(session({
+  secret:'express',
+  store: new mongoBase({
+    url: dbURL,
+    collection: 'sessions'
+  })
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
