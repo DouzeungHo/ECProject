@@ -1,8 +1,31 @@
-function userSignUp(userName, email, password) {
-	console.log("success");
-}
-
 jQuery(function($) {
+
+	function userSignUp(userName, email, password) {
+		data = {
+			userName:userName,
+			email:email,
+			password:password
+		};
+		$.ajax({
+          type: "POST",
+          url: "/users/register",
+          data: data,
+          dataType: 'json',
+          success: function(result) {
+          	if (result.code == 200) {
+	          	new PNotify({
+	    			title: '登录成功',
+	    			type:'success'
+	  			});
+	  			window.location.replace("/")
+	        } else if (result.code == 400) {
+	        	new PNotify({
+	    			title: '用户邮箱已被注册'
+	  			});
+	        }
+          }
+	    });
+	}
 	var signupBtn = $('#signup-btn');
 	var userName = $('#signup-username');
 	var email = $('#signup-email');
@@ -26,7 +49,7 @@ jQuery(function($) {
     			text: '试试看重新输入一次？'
   			});
 		} else {
-			userSignUp(userName, email, password);
+			userSignUp(userName.val(), email.val(), password.val());
 		}
 	});
 });

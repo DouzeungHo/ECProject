@@ -1,8 +1,35 @@
-function userLogin(emial, password) {
-	console.log("login success");
-}
-
 jQuery(function($) {
+	function userLogin(email, password) {
+		data = {
+			email:email,
+			password:password
+		};
+		$.ajax({
+          type: "POST",
+          url: "/users/login",
+          data: data,
+          dataType: 'json',
+          success: function(result) {
+          	console.log("code:" + result.code);
+          	if (result.code == 200) {
+	          	new PNotify({
+	    			title: '登录成功',
+	    			type:'success'
+	  			});
+	  			window.location.replace("/")
+	        } else if (result.code == 400) {
+	        	new PNotify({
+	    			title: '邮箱未被注册'
+	  			});
+	        } else if (result.code == 500) {
+	        	new PNotify({
+	    			title: '用户名或密码错误'
+	  			});
+	        }
+          }
+	    });
+	}
+
 	var signinBtn = $('#signin-btn');
 	var email = $('#signin-email');
 	var password = $('#signin-password');

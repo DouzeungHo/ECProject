@@ -22,8 +22,7 @@ var app = express();
 //解析请求
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-//set session
-app.use(cookieParser()); 
+//set session, Blog 上看的，暂时没发现这段代码怎么做到session的作用
 app.use(session({
   secret:'express',
   store: new mongoBase({
@@ -59,6 +58,17 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+mongoose.connect('mongodb://localhost:27017/tripG',function (err) {
+    if(err){
+        console.log('数据库连接失败');
+    }else{
+        console.log('数据库连接成功');
+        app.listen(port);
+        console.log('> Listening at ' + uri + '\n');
+        opn(uri);
+    }
 });
 
 module.exports = app;

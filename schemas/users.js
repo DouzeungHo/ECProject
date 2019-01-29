@@ -6,8 +6,6 @@ module.exports = new mongoose.Schema({
     username:String,
     // 密码
     password:String,
-    //用户地
-    location:String,
     //Email
     email:String
 })
