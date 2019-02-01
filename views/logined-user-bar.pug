@@ -1,0 +1,12 @@
+table
+  td
+    tr
+      button#user-head(data-mui-toggle='dropdown').mui-btn.mui-btn--fab
+      ul.mui-dropdown__menu--right.mui-dropdown__menu.dropdown-list
+        li
+          a(href='/userCenter') 个人中心
+        li
+          a(href='/logout') 退出登录
+  td
+    tr
+      span #{user.username}

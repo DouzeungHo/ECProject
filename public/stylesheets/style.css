@@ -183,3 +183,13 @@ buttons {
   color: #fff;
   text-decoration: underline;
 }
+
+#user-head {
+  vertical-align: middle;
+  margin-right: 5px;
+  background-image: url('../images/user_headimg.svg');
+  background-size: cover;
+}
+.dropdown-list {
+  text-align: center;
+}

@@ -9,9 +9,32 @@ router.get('/login', function(req, res, next) {
 	res.render('login', {title:'登录'});
 });
 
+router.get('/logout', function(req, res, next) {
+	delete req.session.user;
+	res.redirect('/');
+});
+
+router.get('/userCenter', function(req, res, next) {
+	var user = req.session.user;
+	res.render('personDetail', {
+		title:'用户详情',
+		user: user
+	});
+});
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	res.render('index', { title: '拼团游'});
+    var loginUser = req.session.user;
+    var isLogined = !!loginUser;
+    if (isLogined) {
+		res.render('index', { 
+			title: '拼团游欢迎:'+loginUser.username,
+			user: loginUser
+		});
+	} else {
+		res.render('index', { title: '拼团游'});
+	}
 });
 
 module.exports = router;

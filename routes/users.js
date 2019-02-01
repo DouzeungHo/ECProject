@@ -5,8 +5,7 @@ var responseData;
 
 router.use( function (req,res,next) {
     responseData = {
-        code: 0,
-        message:''
+        code: 0
     };
     next();
 });
@@ -49,6 +48,9 @@ router.post('/login', function(req, res, next) {
     },function (err,doc) {
         if(doc && doc.password == password) {
             responseData.code = 200;
+            responseData.message = doc;
+            req.session.user = doc;
+            console.log(req.session);
         } else if(!doc) {
         	responseData.code = 400;
         } else {
@@ -58,5 +60,7 @@ router.post('/login', function(req, res, next) {
         return;
     });
 });
+
+
 
 module.exports = router;

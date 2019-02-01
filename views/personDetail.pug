@@ -1,0 +1,19 @@
+extends layout
+
+append head
+	script(src='/javascripts/detailPage.js')
+
+block content
+	div#detail-page-block
+		table
+			tr
+				td
+					div.mui-select
+						select#province-select(v-on:change="parentSelect")
+							option(v-for="(province, index) in provinces" data-index="index" :value="province.provinceName") {{province.provinceName}}
+						label 省份
+				td
+					div.mui-select
+						select#city-select
+							option(v-for="city in provinces[parentIndex].citys" :value="city.citysName") {{city.citysName}}
+						label 城市

@@ -16,6 +16,7 @@ jQuery(function($) {
 	    			title: '登录成功',
 	    			type:'success'
 	  			});
+	  			//console.log(result.message);
 	  			window.location.replace("/")
 	        } else if (result.code == 400) {
 	        	new PNotify({

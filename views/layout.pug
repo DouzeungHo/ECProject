@@ -19,7 +19,11 @@ html
                   a.mui--text-title(href='/')
                     button.mui-btn.mui-btn--primary 拼团游
             td(align='right')
-              include none-user-bar.pug
+              #user
+                if user
+                  include logined-user-bar.pug
+                else 
+                  include none-user-bar.pug
 
     div#content-wrapper
       div.mui--appbar-height
