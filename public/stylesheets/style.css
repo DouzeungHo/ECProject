@@ -1,8 +1,15 @@
 /**
  * Body CSS
  */
+#detail-page-block {
+  margin: 10px;
+}
 
-a {
+.no-overflow{
+  overflow: hidden;
+}
+
+a.white {
   text-decoration:none;
   color: #ffffff;
 }

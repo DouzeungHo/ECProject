@@ -1,7 +1,7 @@
 jQuery(function($) {
   //set dialog at 500ms at begining.
   {
-      PNotify.prototype.options.delay = 700;
+    //   PNotify.prototype.options.delay = 700;
   }
 
   var $bodyEl = $('body'),

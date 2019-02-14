@@ -1,19 +1,63 @@
 extends layout
 
-append head
-	script(src='/javascripts/detailPage.js')
-
 block content
+	script(src='/javascripts/detailPage.js')
 	div#detail-page-block
-		table
-			tr
-				td
-					div.mui-select
-						select#province-select(v-on:change="parentSelect")
-							option(v-for="(province, index) in provinces" data-index="index" :value="province.provinceName") {{province.provinceName}}
-						label 省份
-				td
-					div.mui-select
-						select#city-select
-							option(v-for="city in provinces[parentIndex].citys" :value="city.citysName") {{city.citysName}}
-						label 城市
+		form(novalidate class="md-layout" @submit.prevent="validateUser")
+			md-card.md-layout-item.no-overflow
+				md-card-header
+					div.md-title 用户信息填写
+				md-card-content
+					div.md-layout.md-gutter
+						div.md-layout-item.md-small-size-100
+							md-field
+								label(for='name') 姓名
+								md-input#detail-name(name='name' v-model='detailName')
+						div.md-layout-item.md-small-size-100
+							md-field
+								label(for='idcard') 身份证号
+								md-input#detail-id(name='idcard')
+						div.md-layout-item.md-small-size-100
+							md-field
+								label(for='gender') 性别
+								md-select#gender(name='gender' v-model='sex')
+									md-option
+									md-option(value='M') 男
+									md-option(value='F') 女
+
+					div.md-layout.md-gutter
+						div.md-layout-item.md-small-size-100
+							md-field
+								label(for='phone') 移动电话
+								md-input#detail-phone(name='phone')
+						div.md-layout-item.md-small-size-100
+							md-field
+								label(for='province') 省份
+								md-select#detail-province(name='province' v-on:click.native='parentSelect' v-model='detailProvince')
+									md-option(v-for="(province, key) in provinces" :value="province.provinceName" :key="province.provinceName") {{province.provinceName}}
+						div.md-layout-item.md-small-size-100
+							md-field
+								label(for='detail-city') 城市
+								md-select#detail-city(name='detail-city' v-on:click.native='parentSelected' v-model='detailCity')
+									md-option(v-for="(city, key) in provinces[parentIndex].citys" :value="city.citysName" :key="city.citysName") {{city.citysName}}
+
+					div.md-layout.md-gutter
+						div.md-layout-item.md-small-size-100
+							md-field
+								label(for='language') 语言
+								md-select#detail-language(name='language' multiple v-model='selectedLanguages' md-dense)
+									md-option(value='English') 英语
+									md-option(value='Cantonese') 粤语
+									md-option(value='Chinese') 普通话
+									md-option(value='Minnan') 闽南话
+									md-option(value='Hakak') 客家话
+									md-option(value='TongPei') 东北话
+									md-option(value='Peking') 北京话
+									md-option(value='Zang') 藏语
+									md-option(value='Korean') 韩语
+
+					div.md-layout.md-gutter
+						div.md-layout-item.md-small-size-100
+							md-field
+								label(for='introdution') 自我介绍
+								md-textarea(v-model='selfIntroduction' name='introdution')

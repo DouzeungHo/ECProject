@@ -65,7 +65,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-mongoose.connect('mongodb://localhost:27017/tripG',function (err) {
+mongoose.connect(dbURL,{useNewUrlParser: true}, function (err) {
     if(err){
         console.log('数据库连接失败');
     }else{
