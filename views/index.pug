@@ -7,3 +7,19 @@ block content
 
 		div#current-recommended-block
 			h3 近期推荐
+			div.md-gutter.md-layout
+				+InfoCard('如花寻找伙伴前去新疆', 'ruHua', '计划四日游，团队四人，预报速从~')
+				+InfoCard('如花寻找伙伴前去新疆', 'ruHua', '计划四日游，团队四人，预报速从~')
+				+InfoCard('如花寻找伙伴前去新疆', 'ruHua', '计划四日游，团队四人，预报速从~')
+
+mixin InfoCard(title, author, detail)
+	md-card.md-layout-item.md-small-size-50.md-xsmall-size-100.card
+		md-card-header
+			md-avatar
+				img(src="https://vuematerial.io/assets/examples/avatar.png" alt="Avatar")
+			div.md-title= title
+			div.md-subhead= author
+		md-card-media
+			img(src="https://vuematerial.io/assets/examples/card-image-1.jpg" alt="People")
+		md-card-content
+			p= detail

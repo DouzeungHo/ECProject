@@ -1,6 +1,12 @@
 /**
  * Body CSS
  */
+#current-recommended-block {
+  margin: 25px;
+}
+.card {
+  margin: 5px;
+}
 #carousel-block img{
   max-height: 300px;
   width: 100%;
