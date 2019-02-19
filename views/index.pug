@@ -3,5 +3,7 @@ extends layout
 block content
 	script(src='/javascripts/index.js')
 	div#index-page
-		h1 #{title}
-		md-button shit
+		include carousel.pug
+
+		div#current-recommended-block
+			h3 近期推荐

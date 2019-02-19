@@ -14,10 +14,12 @@ html
           tr
             td
               div.mui-container-fluid
-                a.sidedrawer-toggle.mui--visible-xs-inline-block.mui--visible-sm-inline-block.js-show-sidedrawer ☰
-                a.sidedrawer-toggle.mui--hidden-xs.mui--hidden-sm.js-hide-sidedrawer ☰
-                  a.mui--text-title(href='/')
-                    button.mui-btn.mui-btn--primary 拼团游
+                button.mui-btn.mui-btn--primary.sidedrawer-toggle.mui--visible-xs-inline-block.mui--visible-sm-inline-block.js-show-sidedrawer ☰
+                button.mui-btn.mui-btn--primary.sidedrawer-toggle.mui--hidden-xs.mui--hidden-sm.js-hide-sidedrawer ☰
+            td(align='center')
+              a(href='/')
+                button.mui-btn.mui-btn--primary
+                  h4 拼团游
             td(align='right')
               #user
                 if user
@@ -27,7 +29,7 @@ html
 
     div#content-wrapper
       div.mui--appbar-height
-      div#strange.mui-container-fluid
+      div#strange
         block content
 
     footer#footer
