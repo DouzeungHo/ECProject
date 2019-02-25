@@ -1,0 +1,36 @@
+extends layout
+
+block content
+	script(src='/javascripts/createRoute.js')
+	div#create-route-block
+		div#step-block.md-layout.md-alignment-top-center
+			md-card.no-overflow
+				md-card-content
+					md-steppers(:md-active-step.sync="active" md-linear)
+						md-step#first-step(md-label="选择时间与州"  :md-done.sync="first")
+							div.md-layout
+								md-autocomplete(v-model='selectedState'  :md-options='states')
+									label 州(英文输入)
+								md-datepicker(v-model="selectedDate")
+									label 旅行日期
+								md-button.md-raised.md-primary(@click="setDone('first-step', 'second-step')") 继续
+						md-step#second-step(md-label="选择城市与预算"  :md-done.sync="second")
+							div
+								div.md-layout.md-gutter
+									md-autocomplete.md-layout-item(v-model='selectedCity'  :md-options='cities')
+										label 选择城市(英文输入)
+									md-button.md-primary(@click="getPOI()") 查看景点
+								div.md-layout
+									md-list.md-double-line.md-layout-item
+										md-subheader 系统推荐景点
+										md-list-item(v-for="poi in cityPOI")
+											md-divider
+											md-icon nature_people
+											div.md-list-item-text
+												span {{poi}}
+											div.md-layout.md-gutter
+												md-button.md-layout-item(@click='searchOnGoogle(poi)').md-list-action.md-primary 查看详情
+												md-button.md-layout-item(@click='addPOItoTravel(poi)').md-list-action.md-primary.md-raised 加入行程
+							md-button.md-align-top-right.md-raised.md-primary(@click="setDone('second-step', 'third-step')") 继续
+						md-step#third-step(md-label="选择导游与路线"  :md-done.sync="third")
+							md-button.md-raised.md-primary(@click="submitForm()") 提交

@@ -19,7 +19,8 @@ jQuery(function($) {
 			detailPhone: '',
 			detailID: '',
 			detailProvince: '',
-			detailCity: ''
+			detailCity: '',
+			disabled: false
 		},
 		methods: {
 			parentSelected: function() {
@@ -29,6 +30,9 @@ jQuery(function($) {
 			parentSelect: function() {
 				this.parentIndex = 0;
 				this.detailCity = '';
+			},
+			submitForm: function() {
+
 			}
 		}
 	});
@@ -40,6 +44,7 @@ jQuery(function($) {
 			setProvinceValue(cities.provinces);
 		}
 	});
+	//get userdata
 	function setProvinceValue(provinces) {
 		for (i = 0; i < provinces.length; i++) {
 			provinceData.push(provinces[i]);
@@ -48,7 +53,6 @@ jQuery(function($) {
 	function findProvinceIndex(province) {
 		for (i = 0; i < provinceData.length; i++) {
 			if (provinceData[i].provinceName == province) {
-				console.log(i);
 				return i;
 			}
 		}

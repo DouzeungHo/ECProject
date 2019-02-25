@@ -1,6 +1,11 @@
 /**
  * Body CSS
  */
+#create-route-block {
+  margin-left: 35px;
+  margin-right: 35px;
+  margin-bottom: 30px;
+}
 #current-recommended-block {
   margin: 25px;
 }

@@ -14,6 +14,18 @@ router.get('/logout', function(req, res, next) {
 	res.redirect('/');
 });
 
+router.get('/createRoute', function(req, res, next) {
+	var user = req.session.user
+	if (req.session.user != null) {
+		res.render('createRoute', {
+			title:'新的行程',
+			user: user
+		});
+	} else {
+		res.redirect('/login');
+	}
+});
+
 router.get('/userCenter', function(req, res, next) {
 	var user = req.session.user;
 	res.render('personDetail', {
