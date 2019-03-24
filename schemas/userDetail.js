@@ -5,7 +5,7 @@ module.exports = new mongoose.Schema({
     // 用户邮箱
     userEmail: String,
     //real Name
-    userName: String,
+    detailName: String,
     //语言
     selectedLanguages: Array,
     //性别

@@ -1,6 +1,14 @@
 /**
  * Body CSS
  */
+#forum-block {
+  margin: 10px;
+}
+
+.forum-list-item {
+  width: 100%;
+}
+
 #create-route-block {
   margin-left: 35px;
   margin-right: 35px;
@@ -57,6 +65,7 @@ buttons {
   left: 0;
   z-index: 2;
   transition: left 0.2s;
+  z-index: 99;
 }
 
 #sidedrawer {

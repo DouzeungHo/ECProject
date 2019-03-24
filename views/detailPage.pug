@@ -1,0 +1,17 @@
+extends layout
+
+block content
+	script(src='/javascripts/detailPage.js')
+	div#detail-page-block
+		div.md-layout
+			md-tabs(md-sync-route)
+				md-tab(md-label="个人信息" to="/components/tabs/touristForm")
+					div(v-if='disabled')
+						include touristFormDisable.pug
+					div(v-else-if='disabled === false')
+						include touristForm.pug
+				md-tab(md-label="导游信息表（选填）" to="/components/tabs/directorForm")
+					div(v-if='directorDisabled')
+						include directorFormDisable.pug
+					div(v-else-if='directorDisabled === false')
+						include directorForm.pug

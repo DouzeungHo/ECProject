@@ -2,16 +2,38 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/register', function(req, res, next) {
-	res.render('register', {title:'注册'});
+	var user = req.session.user;
+	if (!user) {
+		res.render('register', {title:'注册'});
+	} else {
+		res.redirect('/');
+	}
 });
 
 router.get('/login', function(req, res, next) {
-	res.render('login', {title:'登录'});
+	var user = req.session.user;
+	if (!user) {
+		res.render('login', {title:'登录'});
+	} else {
+		res.redirect('/');
+	}
 });
 
 router.get('/logout', function(req, res, next) {
 	delete req.session.user;
 	res.redirect('/');
+});
+
+router.get('/forum', function(req, res, next) {
+	var user = req.session.user;
+	if (user) {
+		res.render('forum', {
+			title:'驴友之家',
+			user: user
+		});
+	} else {
+		res.render('forum')
+	}
 });
 
 router.get('/createRoute', function(req, res, next) {
@@ -28,10 +50,14 @@ router.get('/createRoute', function(req, res, next) {
 
 router.get('/userCenter', function(req, res, next) {
 	var user = req.session.user;
-	res.render('personDetail', {
-		title:'用户详情',
-		user: user
-	});
+	if (user){ 
+		res.render('detailPage', {
+			title:'用户详情',
+			user: user
+		});
+	} else {
+		res.redirect('/login');
+	}
 });
 
 

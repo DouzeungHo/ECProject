@@ -28,7 +28,7 @@ jQuery(function($) {
 
 
   function hideSidedrawer() {
-    $bodyEl.toggleClass('hide-sidedrawer');
+    //$bodyEl.toggleClass('hide-sidedrawer');
   }
 
 

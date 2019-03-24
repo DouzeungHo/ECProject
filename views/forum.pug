@@ -1,0 +1,45 @@
+extends layout
+
+block content
+	script(src='/javascripts/forum.js')
+	div#forum-block.md-layout.md-alignment-center-top.md-gutter
+		div#forum-head
+		div#forum-body.md-layout-item.md-small-size-95
+			label New post
+			md-list.md-triple-line
+				+forum-list-item('Hanyn', 'Anybody wants to go Dallas?', 'I want to go to Dallas this summer holiday for 7 days', '30 min ago')
+				+forum-list-item('CoolDante', 'Canada local cool guy recruit', 'Anybody wants to come Toronto?')
+				+forum-list-item('Yasuo', 'I think I am loser in LOL', 'Totally lost in Summoner Canyon, need help')
+				+forum-list-item('Hanyn', 'Anybody wants to go Dallas?', 'I want to go to Dallas this summer holiday for 7 days')
+				+forum-list-item('CoolDante', 'Canada local cool guy recruit', 'Anybody wants to come Toronto?')
+				+forum-list-item('Yasuo', 'I think I am loser in LOL', 'Totally lost in Summoner Canyon, need help')
+			md-button.md-alignment-right-bottom.md-raised.md-primary.md-layout-item Next page
+		div#forum-aside.md-layout-item.md-size-20.md-small-hide
+			label Current adiministrator
+			md-card
+				md-card-header
+					div.md-title administrator
+				md-card-content
+					p Dr Kenneth
+					p Miss Rupa 
+			br
+			label Watch Posts by time
+			ul
+				li 
+					a 2019-3
+				li
+					a 2019-2
+				li
+					a 2019-1
+
+
+mixin forum-list-item(author, title, detail, time='1 hr ago')
+	md-list-item.forum-list-item
+		md-avatar
+			img(src="https://placeimg.com/40/40/people/1" alt="People")
+		div.md-list-item-text
+			span= author+ ": " + title
+			span= time
+			p= detail
+		md-button.md-list-action.md-primary Watch
+

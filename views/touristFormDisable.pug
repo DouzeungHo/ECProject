@@ -1,7 +1,9 @@
 form(novalidate class="md-layout" @submit.prevent="validateUser")
 	md-card.md-layout-item.no-overflow
 		md-card-header
-			div.md-title 用户信息填写
+			div.md-layout
+				div.md-title 用户信息填写
+				md-button(@click='startEdit') 编辑
 		md-card-content
 			div.md-layout.md-gutter
 				div.md-layout-item.md-small-size-100
@@ -23,7 +25,7 @@ form(novalidate class="md-layout" @submit.prevent="validateUser")
 				div.md-layout-item.md-small-size-100
 					md-field
 						label(for='phone') 移动电话
-						md-input#detail-phone(name='phone' disabled)
+						md-input#detail-phone(name='phone' v-model='detailPhone' disabled)
 				div.md-layout-item.md-small-size-100
 					md-field
 						label(for='province') 省份
@@ -52,5 +54,4 @@ form(novalidate class="md-layout" @submit.prevent="validateUser")
 				div.md-layout-item.md-small-size-100
 					md-field
 						label(for='introdution') 自我介绍
-						md-textarea(v-model='selfIntroduction' name='introdution')
-			md-button.md-primary.md-raised(v-on:click='submitForm') 提交
+						md-textarea(v-model='selfIntroduction' name='introdution' disabled)

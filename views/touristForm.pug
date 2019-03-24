@@ -11,7 +11,7 @@ form(novalidate class="md-layout" @submit.prevent="validateUser")
 				div.md-layout-item.md-small-size-100
 					md-field
 						label(for='idcard') 身份证号
-						md-input#detail-id(name='idcard')
+						md-input#detail-id(name='idcard' v-model='detailID')
 				div.md-layout-item.md-small-size-100
 					md-field
 						label(for='gender') 性别
@@ -23,7 +23,7 @@ form(novalidate class="md-layout" @submit.prevent="validateUser")
 				div.md-layout-item.md-small-size-100
 					md-field
 						label(for='phone') 移动电话
-						md-input#detail-phone(name='phone')
+						md-input#detail-phone(name='phone' v-model='detailPhone')
 				div.md-layout-item.md-small-size-100
 					md-field
 						label(for='province') 省份
@@ -53,4 +53,4 @@ form(novalidate class="md-layout" @submit.prevent="validateUser")
 					md-field
 						label(for='introdution') 自我介绍
 						md-textarea(v-model='selfIntroduction' name='introdution')
-			md-button.md-primary.md-raised(v-on:click='submitForm') 提交
+			md-button.md-primary.md-raised(v-on:click='submitTouristForm') 提交
