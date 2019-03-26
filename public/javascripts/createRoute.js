@@ -14,7 +14,7 @@ jQuery(function($) {
 			}
 		}
 	});
-	var app = new Vue({
+	var createRouteApp = new Vue({
 		el: '#create-route-block',
 		data: {
 			active: 'first-step',

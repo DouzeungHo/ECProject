@@ -3,5 +3,34 @@ form(novalidate class="md-layout")
 		md-card-header
 			div.md-layout
 				div.md-title 导游信息填写
-				md-button(@click='startEdit') 编辑
+				md-button(@click='startEditTourGuyForm') 编辑
 		md-card-content
+			div.md-layout.md-layout-gutter
+				div.md-layout-item.md-small-size-100
+					md-field
+						label(for='vehicle') 载具（车辆型号、品牌）
+						md-input#detail-vehicle(name='vehicle' v-model='vehicle' disabled)
+				div.md-layout-item.md-small-size-100
+					md-field
+						label(for='maximumNum') 可载人数
+						md-input#detail-maxNum(name='maximumNum' type='number' v-model='maximumNum' disabled)
+				div.md-layout-item.md-small-size-100
+					md-field
+						label(for='desiredSalary') 服务费(RMB/天)
+						md-input#detail-salary(name='desiredSalary' type='number' v-model='desiredSalary' disabled)
+			div.md-layout.md-layout-gutter
+				div.md-layout-item.md-small-size-100
+					md-autocomplete#detail-state(name='detailState' v-model='detailState'  :md-options='states' disabled)
+						label 所在州
+				div.md-layout-item.md-small-size-100
+					md-autocomplete#detail-usCity(name='detailUSCity' v-model='detailUSCity'  :md-options='cities' disabled)
+						label 所在城市
+				div.md-layout-item.md-small-size-100
+					md-field
+						label(for='detailSchool') 所在学校
+						md-input#detail-school(name='detailSchool' type='number' v-model='detailSchool' disabled)
+			div.md-layout.md-layout-gutter
+				div.md-layout-item.md-small-size-100
+					md-field
+						label(for='detailAddr') 详细地址
+						md-input#detail-addr(name='detailAddr' type='number' v-model='detailAddr' disabled)

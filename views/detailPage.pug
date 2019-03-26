@@ -1,5 +1,9 @@
 extends layout
 
+append head
+	script(src='/javascripts/croppie.js')
+	link(href="/stylesheets/croppie.css" media="all" rel="stylesheet" type="text/css")
+
 block content
 	script(src='/javascripts/detailPage.js')
 	div#detail-page-block

@@ -3,9 +3,12 @@ form(novalidate class="md-layout" @submit.prevent="validateUser")
 		md-card-header
 			div.md-layout
 				div.md-title 用户信息填写
-				md-button(@click='startEdit') 编辑
+				md-button(@click='startEditUserForm') 编辑
+				div.md-layout.md-alignment-top-right
+					md-avatar.md-large.md-alignment-top-right
+						img.user-headImg(src='/images/user_headimg.svg')
 		md-card-content
-			div.md-layout.md-gutter
+			div.md-layout.md-layout-gutter
 				div.md-layout-item.md-small-size-100
 					md-field
 						label(for='name') 姓名
@@ -21,7 +24,7 @@ form(novalidate class="md-layout" @submit.prevent="validateUser")
 							md-option
 							md-option(value='M') 男
 							md-option(value='F') 女			
-			div.md-layout.md-gutter
+			div.md-layout.md-layout-gutter
 				div.md-layout-item.md-small-size-100
 					md-field
 						label(for='phone') 移动电话
@@ -36,7 +39,7 @@ form(novalidate class="md-layout" @submit.prevent="validateUser")
 						label(for='detail-city') 城市
 						md-select#detail-city(name='detail-city' v-on:click.native='parentSelected' v-model='detailCity' disabled)
 							md-option(v-for="(city, key) in provinces[parentIndex].citys" :value="city.citysName" :key="city.citysName") {{city.citysName}}			
-			div.md-layout.md-gutter
+			div.md-layout.md-layout-gutter
 				div.md-layout-item.md-small-size-100
 					md-field
 						label(for='language') 语言
@@ -50,7 +53,7 @@ form(novalidate class="md-layout" @submit.prevent="validateUser")
 							md-option(value='Peking') 北京话
 							md-option(value='Zang') 藏语
 							md-option(value='Korean') 韩语			
-			div.md-layout.md-gutter
+			div.md-layout.md-layout-gutter
 				div.md-layout-item.md-small-size-100
 					md-field
 						label(for='introdution') 自我介绍

@@ -1,7 +1,11 @@
 form(novalidate class="md-layout" @submit.prevent="validateUser")
 	md-card.md-layout-item.no-overflow
 		md-card-header
-			div.md-title 用户信息填写
+			div.md-layout
+				div.md-title 用户信息填写
+				div.md-layout.md-alignment-top-right
+					md-avatar.md-large.md-alignment-top-right(v-on:click.native='test')
+						img.user-headImg(src='/images/user_headimg.svg')
 		md-card-content
 			div.md-layout.md-gutter
 				div.md-layout-item.md-small-size-100
@@ -54,3 +58,13 @@ form(novalidate class="md-layout" @submit.prevent="validateUser")
 						label(for='introdution') 自我介绍
 						md-textarea(v-model='selfIntroduction' name='introdution')
 			md-button.md-primary.md-raised(v-on:click='submitTouristForm') 提交
+div
+	md-dialog(:md-active.sync='showDialog'  :md-fullscreen='true')
+		md-dialog-title 更换头像
+		div#select-headImg(align='center')
+			img#image
+			div.md-layout-item.md-layout.md-alignment-bottom-center
+				md-button#select-headImg-btn.md-raised.md-primary(v-on:click='loadImg') 选择图片
+				md-button#confirm-headImg-btn.md-raised.md-primary(v-on:click='exportImg' style='display:none;') 确认裁剪
+					input#imgInput(type='file' @change='getImg' accept='image/png, image/jpg, image/jpeg' style='display:none;')
+				md-button.md-raised(v-on:click='showDialog=false') 取消

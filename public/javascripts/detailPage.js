@@ -1,5 +1,6 @@
 jQuery(function($) {
 	//default value
+	var vanilla = null;
 	var provinceData = [{
 							provinceName: '',
 							citys:[{
@@ -7,7 +8,9 @@ jQuery(function($) {
 							}]
 						}];
 	var provinces = provinceData;
-	var app = new Vue({
+	var states = [];
+	var cities = [];
+	var detailApp = new Vue({
 		el: '#detail-page-block',
 		data: {
 			selectedLanguages:[],
@@ -21,7 +24,20 @@ jQuery(function($) {
 			detailProvince: '',
 			detailCity: '',
 			disabled: true,
-			directorDisabled: true
+			directorDisabled: true,
+			// next part is director part
+			states: states,
+			cities: cities,
+			detailSchool: '',
+			detailAddr:'',
+			detailState: '',
+			detailUSCity: '',
+			desiredSalary: '',
+			maximumNum: '',
+			vehicle: '',
+			//dialog
+			showDialog: false,
+			src: null
 		},
 		methods: {
 			parentSelected: function() {
@@ -57,30 +73,62 @@ jQuery(function($) {
 					}
 				})
 			},
-			startEdit() {
+			startEditUserForm: function() {
 				this.disabled = false;
+			},
+			startEditTourGuyForm: function() {
+				this.directorDisabled = false;
+			},
+			submitTourGuyForm: function() {
+				this.directorDisabled = true;
+			},
+			setUSCity: function() {
+				console.log(this.detailState);
+				console.log(US[this.detailState]);
+				cities.length = 0;
+				if(this.detailState != '') {
+					for (city in US[this.detailState]) {
+						cities.push(US[this.detailState][city]);
+					}
+				}
+			},
+			test: function() {
+				this.showDialog = true;
+			},
+			loadImg: function() {
+				$('#imgInput').click();
+			},
+			getImg: function(event) {
+				var file = event.target.files[0];
+				var reader = new FileReader();
+				if (file) {
+					reader.readAsDataURL(file);
+				}
+				reader.onloadend = function(){
+					$('#select-headImg-btn').hide();
+					$('#confirm-headImg-btn').show();
+					document.querySelector('#image').src = reader.result;
+					useCroppie();
+				}
+			},
+			exportImg: function() {
+				if(vanilla != null) {
+					vanilla.croppie('result', 'base64').then(function(img) {
+						$('.user-headImg').attr('src', img);
+						uploadToServer(img);
+					});
+				}
 			}
 		}
 	});
-	$.ajax({
-		url: "/api/city",
-		dataType: 'json',
-		success: function(result) {
-			var cities = result;
-			setProvinceValue(cities.provinces);
-		}
-	});
-	//get userdata
-	$.ajax({
-		url: "/users/getUserDetail",
-		type: "POST",
-		dataType:'json',
-		success: function(result) {
-			if(result.code == 200) {
-				setUserDetail(result.userDetail);
-			}
-		}
-	})
+	initPage();
+	function useCroppie() {
+		vanilla = $('#image').croppie({
+			enableExif: true,
+			viewport: { width: 100, height: 100, type:'circle' },
+			boundary: { width: 300, height: 300 },
+		})
+	}
 	function setProvinceValue(provinces) {
 		for (i = 0; i < provinces.length; i++) {
 			provinceData.push(provinces[i]);
@@ -95,15 +143,69 @@ jQuery(function($) {
 		return 0;
 	}
 	function setUserDetail(userDetail) {
-		console.log("from server:");
-		console.log(userDetail);
-		app.detailName = userDetail.detailName;
-		app.detailProvince = userDetail.detailProvince;
-		app.detailPhone = userDetail.detailPhone;
-		app.detailID = userDetail.detailID;
-		app.detailCity = userDetail.detailCity;
-		app.selfIntroduction = userDetail.selfIntroduction;
-		app.selectedLanguages = userDetail.selectedLanguages;
-		app.sex = userDetail.sex;
+		detailApp.detailName = userDetail.detailName;
+		detailApp.detailProvince = userDetail.detailProvince;
+		detailApp.detailPhone = userDetail.detailPhone;
+		detailApp.detailID = userDetail.detailID;
+		detailApp.detailCity = userDetail.detailCity;
+		detailApp.selfIntroduction = userDetail.selfIntroduction;
+		detailApp.selectedLanguages = userDetail.selectedLanguages;
+		detailApp.sex = userDetail.sex;
+	}
+		
+	function setTourGuyDetail(tourGuyDetail) {
+
+	}
+	function uploadToServer(img) {
+		var formdata = new FormData();
+		formdata.append("file",img);
+        $.ajax({
+           url: "/users/uploadHeadImg",
+            type: "post",
+            data: formdata,
+            processData: false,  // 不处理数据
+            contentType: false ,  // 不设置内容类型
+            success:function (result) {
+                console.log(result);
+            }
+        });
+        detailApp.showDialog = false;
+	}
+	function checkHeadImg(email) {
+		var headimg = '/user_headimg/' + email + '.png'
+		$(".user-headImg").attr('src', headimg);
+	}
+	function initPage() {
+		checkHeadImg();
+		$.ajax({
+			url: "/api/city",
+			dataType: 'json',
+			success: function(result) {
+				var cities = result;
+				setProvinceValue(cities.provinces);
+			}
+		});
+		//get userdata
+		$.ajax({
+			url: "/users/getUserDetail",
+			type: "POST",
+			dataType:'json',
+			success: function(result) {
+				if(result.code == 200) {
+					setUserDetail(result.userDetail);
+					checkHeadImg(result.userDetail.userEmail);
+				}
+			}
+		})
+		$.ajax({
+			url: "/api/usCities",
+			dataType: 'json',
+			success: function(result) {
+				US = result;
+				for (var key in result) {
+					states.push(key);
+				}
+			}
+		});
 	}
 });

@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
+var multiparty = require('multiparty');
 
 var responseData;
 
@@ -101,6 +103,27 @@ router.post('/getUserDetail', function(req, res, next) {
         res.json(responseData);
         return;
     })
+});
+
+router.post('/uploadHeadImg', function(req, res, next) {
+    var form = new multiparty.Form();
+    var email = req.session.user.email;
+    form.parse(req, function(err, fields, files){
+        //去除前缀
+        var imgData = fields.file[0].replace(/^data:image\/\w+;base64,/, '');
+        //转码
+        var dataBuffer = new Buffer(imgData, 'base64');
+        fs.writeFile('public/user_headimg/'+ email + '.png', dataBuffer, function(err){
+            if(err){
+                responseData.code = 500;
+                responseData.msg = err;
+                res.json(responseData);
+            }else{
+                responseData.code = 200;
+                res.json(responseData);
+            }
+        });
+    });
 });
 
 router.post('/login', function(req, res, next) {

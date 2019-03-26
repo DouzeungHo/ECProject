@@ -10,7 +10,6 @@ router.get('/city', function(req, res, next) {
             //res.send('文件读取失败');
         } else {
         	var cities = JSON.parse(data);
-        	console.log('get request');
             res.json(cities);
         }
     });
@@ -23,7 +22,6 @@ router.get('/country', function(req, res, next) {
             //res.send('文件读取失败');
         } else {
             var countries = JSON.parse(data);
-            console.log('get country request');
             res.json(countries);
         }
     });
@@ -36,7 +34,6 @@ router.get('/usCities', function(req, res, next) {
             //res.send('文件读取失败');
         } else {
             var us_cities = JSON.parse(data);
-            console.log('get us cities request');
             res.json(us_cities);
         }
     });
