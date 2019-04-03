@@ -81,10 +81,26 @@ jQuery(function($) {
 			},
 			submitTourGuyForm: function() {
 				this.directorDisabled = true;
+				var data = {
+					detailSchool: this.detailSchool,
+					detailAddr: this.detailAddr,
+					detailState: this.detailState,
+					detailUSCity: this.detailUSCity,
+					desiredSalary: this.desiredSalary,
+					maximumNum: this.maximumNum,
+					vehicle: this.vehicle
+				};
+				$.ajax({
+					type: "POST",
+					url:"users/tourGuyDetailUpdate",
+					dataType: 'json',
+					data: data, 
+					success: function(response) {
+						console.log(response);
+					}
+				})
 			},
 			setUSCity: function() {
-				console.log(this.detailState);
-				console.log(US[this.detailState]);
 				cities.length = 0;
 				if(this.detailState != '') {
 					for (city in US[this.detailState]) {
@@ -142,7 +158,7 @@ jQuery(function($) {
 		}
 		return 0;
 	}
-	function setUserDetail(userDetail) {
+	function setPageUserDetail(userDetail) {
 		detailApp.detailName = userDetail.detailName;
 		detailApp.detailProvince = userDetail.detailProvince;
 		detailApp.detailPhone = userDetail.detailPhone;
@@ -152,9 +168,26 @@ jQuery(function($) {
 		detailApp.selectedLanguages = userDetail.selectedLanguages;
 		detailApp.sex = userDetail.sex;
 	}
-		
+	function setPageTourGuyDetail(tourGuyDetail) {
+		detailApp.detailSchool = tourGuyDetail.detailSchool;
+		detailApp.detailAddr = tourGuyDetail.detailAddr;
+		detailApp.detailState = tourGuyDetail.detailState;
+		detailApp.detailUSCity = tourGuyDetail.detailUSCity;
+		detailApp.desiredSalary = tourGuyDetail.desiredSalary;
+		detailApp.maximumNum = tourGuyDetail.maximumNum;
+		detailApp.vehicle = tourGuyDetail.vehicle;
+	}
 	function setTourGuyDetail(tourGuyDetail) {
-
+		$.ajax({
+			url: "/users/getTourGuyDetail",
+			type: "POST",
+			dataType:'json',
+			success: function(result) {
+				if(result.code == 200) {
+					setPageTourGuyDetail(result.tourGuyDetail);
+				}
+			}
+		})
 	}
 	function uploadToServer(img) {
 		var formdata = new FormData();
@@ -172,11 +205,11 @@ jQuery(function($) {
         detailApp.showDialog = false;
 	}
 	function checkHeadImg(email) {
+		//TODO: check if exist
 		var headimg = '/user_headimg/' + email + '.png'
 		$(".user-headImg").attr('src', headimg);
 	}
-	function initPage() {
-		checkHeadImg();
+	function getCityList() {
 		$.ajax({
 			url: "/api/city",
 			dataType: 'json',
@@ -185,18 +218,6 @@ jQuery(function($) {
 				setProvinceValue(cities.provinces);
 			}
 		});
-		//get userdata
-		$.ajax({
-			url: "/users/getUserDetail",
-			type: "POST",
-			dataType:'json',
-			success: function(result) {
-				if(result.code == 200) {
-					setUserDetail(result.userDetail);
-					checkHeadImg(result.userDetail.userEmail);
-				}
-			}
-		})
 		$.ajax({
 			url: "/api/usCities",
 			dataType: 'json',
@@ -207,5 +228,25 @@ jQuery(function($) {
 				}
 			}
 		});
+	}
+	function setUserDetail() {
+		//get userdata
+		$.ajax({
+			url: "/users/getUserDetail",
+			type: "POST",
+			dataType:'json',
+			success: function(result) {
+				if(result.code == 200) {
+					setPageUserDetail(result.userDetail);
+					checkHeadImg(result.userDetail.userEmail);
+				}
+			}
+		})
+	}
+	function initPage() {
+		checkHeadImg();
+		getCityList();
+		setUserDetail();
+		setTourGuyDetail()
 	}
 });

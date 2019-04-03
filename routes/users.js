@@ -14,6 +14,7 @@ router.use( function (req,res,next) {
 
 var users = require('../models/users.js');
 var UserDetail = require('../models/userDetail.js');
+var tourGuy = require('../models/tourGuy.js');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
@@ -47,9 +48,6 @@ router.post('/detailUpdate', function(req, res, next) {
     var email = req.session.user.email;
     UserDetail.findOne({ userEmail: email }, function (err, doc) {
         if (doc) {
-            console.log("find!!!");
-            console.log(doc);
-            console.log(req.body);
             //update
             doc.update({
                 userEmail: email, 
@@ -71,7 +69,6 @@ router.post('/detailUpdate', function(req, res, next) {
             responseData.code = 200;
             //change finish
         } else {
-            console.log("not find!!!");
             var detail = new UserDetail({
                 userEmail: email,
                 detailName: req.body.detailName,
@@ -91,12 +88,68 @@ router.post('/detailUpdate', function(req, res, next) {
     })
 });
 
+//tourGuyDetailUpdate
+router.post('/tourGuyDetailUpdate', function(req, res, next) {
+    var email = req.session.user.email;
+    tourGuy.findOne({ userEmail: email }, function (err, doc) {
+        if (doc) {
+            //update
+            doc.update({
+                userEmail: email, 
+                detailSchool: req.body.detailSchool,
+                detailAddr: req.body.detailAddr,
+                detailState: req.body.detailState,
+                detailUSCity: req.body.detailUSCity,
+                desiredSalary: req.body.desiredSalary,
+                maximumNum: req.body.maximumNum,
+                vehicle: req.body.vehicle
+            },  function(err, docs) {
+                    if (err) {
+                         console.log(err);
+                    } else {
+                        console.log(docs);
+                    }
+                });
+            responseData.code = 200;
+            //change finish
+        } else {
+            var detail = new tourGuy({
+                userEmail: email, 
+                detailSchool: req.body.detailSchool,
+                detailAddr: req.body.detailAddr,
+                detailState: req.body.detailState,
+                detailUSCity: req.body.detailUSCity,
+                desiredSalary: req.body.desiredSalary,
+                maximumNum: req.body.maximumNum,
+                vehicle: req.body.vehicle
+            });
+            detail.save();
+            responseData.code = 200;
+        }
+        res.json(responseData);
+    })
+});
+
 router.post('/getUserDetail', function(req, res, next) {
     var email = req.session.user.email;
     UserDetail.findOne({ userEmail: email }, function (err, doc) {
         if (doc) {
             responseData.code = 200;
             responseData.userDetail = doc;
+        } else {
+            responseData.code = 404;
+        }
+        res.json(responseData);
+        return;
+    })
+});
+
+router.post('/getTourGuyDetail', function(req, res, next) {
+    var email = req.session.user.email;
+    tourGuy.findOne({ userEmail: email }, function (err, doc) {
+        if (doc) {
+            responseData.code = 200;
+            responseData.tourGuyDetail = doc;
         } else {
             responseData.code = 404;
         }

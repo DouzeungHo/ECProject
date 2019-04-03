@@ -22,7 +22,7 @@ block content
 									md-button.md-primary(@click="getPOI()") 查看景点
 								div.md-layout
 									md-list.md-double-line.md-layout-item
-										md-subheader 系统推荐景点
+										md-subheader#recommendTitle(style='display:none;') 系统推荐景点
 										md-list-item(v-for="poi in cityPOI")
 											md-divider
 											md-icon nature_people
@@ -31,6 +31,10 @@ block content
 											div.md-layout.md-gutter
 												md-button.md-layout-item(@click='searchOnGoogle(poi)').md-list-action.md-primary 查看详情
 												md-button.md-layout-item(@click='addPOItoTravel(poi)').md-list-action.md-primary.md-raised 加入行程
+								div.md-layout
+									md-chips(v-model='selectedPOI' md-placeholder='添加景点...	'  :md-limit='3' v-on:md-delete='addBack')
+										div.md-helper-text 一日最多选择三个
 							md-button.md-align-top-right.md-raised.md-primary(@click="setDone('second-step', 'third-step')") 继续
 						md-step#third-step(md-label="选择导游与路线"  :md-done.sync="third")
 							md-button.md-raised.md-primary(@click="submitForm()") 提交
+		md-dialog-confirm(:md-active.sync="askIfRandom" md-title="不选择景点默认为随便走走，你确定吗？" md-confirm-text="同意" md-cancel-text="不同意" @md-cancel="onCancel" @md-confirm="onConfirm")

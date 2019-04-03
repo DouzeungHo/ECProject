@@ -29,7 +29,9 @@ jQuery(function($) {
 			selectedPOI: selectedPOI,
 			selectedState: null, //null
 			selectedCity: null,
-			selectedDate: null
+			selectedDate: null,
+			randomWalk: false,
+			askIfRandom: false
       	},
 		methods: {
 			setDone: function(id, index) {
@@ -39,7 +41,7 @@ jQuery(function($) {
 						new PNotify({
 		    				title: '选择正确的州名'
 		  				});
-		  				//return;
+		  				return;
 		  			} else if (this.selectedDate) { //check selectedDate
 		  				console.log(this.selectedDate)
 		  			}
@@ -48,7 +50,15 @@ jQuery(function($) {
 		  			cityPOI.length = 0;
 		  			getStateCity(this.selectedState);
 				} else if (id == 'second-step') {
-
+					if (cities.includes(this.selectedCity) == false) {
+						new PNotify({
+							title: '请输入正确城市名'
+						});
+						return;
+					} else if (this.selectedPOI.length == 0) {
+						console.log(index);
+						this.askIfRandom = true;
+					}
 				}
 				this[id] = true;
 				this.secondStepError = null;
@@ -60,20 +70,40 @@ jQuery(function($) {
 				console.log('assume you submit');
 			},
 			getPOI() {
-				cityPOI.length = 0;
-				$.ajax({
-					url: "../resources/" + this.selectedState + "/" + this.selectedCity + ".json",
-					dataType: 'json',
-					success: function(result) {
-						setPOIList(result);
-					}
-				});
+				if (this.selectedCity == null || this.selectedCity == '') {
+					new PNotify({
+		    			title: '请选择正确的城市'
+		  			});
+				} else {
+					cityPOI.length = 0;
+					$('#recommendTitle').show();
+					$.ajax({
+						url: "../resources/" + this.selectedState + "/" + this.selectedCity + ".json",
+						dataType: 'json',
+						success: function(result) {
+							setPOIList(result);
+						}
+					});
+				}
 			},
 			addPOItoTravel(poi) {
-				console.log(poi);
+				selectedPOI.push(poi);
+				var poiIndex = cityPOI.indexOf(poi);
+				cityPOI.splice(poiIndex, 1);
 			},
 			searchOnGoogle(name) {
 				window.open("https://www.google.com.hk/search?safe=strict&q="+name);
+			}, 
+			addBack(text, index) {
+				cityPOI.push(text);
+			},
+			onCancel() {
+				this.second = false;
+				this.active = 'second-step';
+				this.randomWalk = false;
+			},
+			onConfirm() {
+				this.randomWalk = true;
 			}
 		}
 	});

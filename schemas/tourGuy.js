@@ -10,14 +10,12 @@ module.exports = new mongoose.Schema({
     detailState: String,
     //City note: different from user city
     detailUSCity: String,
-    //TODO:Self intro
-    //selfIntroduction: String
     //Payment
     desiredSalary: Number,
     //addr
     detailAddr: String,
     //transport
-    maximunTeamNum: Number,
+    maximumNum: Number,
     //vehicle
     vehicle: String,
     //verified

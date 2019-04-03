@@ -32,5 +32,5 @@ form(novalidate class="md-layout" @submit.prevent="validateDirector")
 				div.md-layout-item.md-small-size-100
 					md-field
 						label(for='detailAddr') 详细地址
-						md-input#detail-addr(name='detailAddr' type='number' v-model='detailAddr')
+						md-input#detail-addr(name='detailAddr' v-model='detailAddr')
 			md-button.md-primary.md-raised(v-on:click='submitTourGuyForm') 提交
